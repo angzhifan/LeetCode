@@ -3,7 +3,7 @@ My own solutions to some LeetCode problems
 
 42. Trapping Rain Water
 
-'''python
+'''Python
 class Solution:
     def trap(self, height: List[int]) -> int:
         n = len(height)
