@@ -1,5 +1,5 @@
 # LeetCode
-In this markdown file, I posted some of my own solutions to some LeetCode problems if I think they are interesting and my solutions have good time complexity or space complexity.
+In this markdown file, I posted some of my own solutions to some LeetCode problems if I think they are interesting and have good time complexity or space complexity.
 
 10. Regular Expression Matching
 
