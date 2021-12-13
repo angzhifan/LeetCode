@@ -3,6 +3,7 @@ My own solutions to some LeetCode problems
 
 42. Trapping Rain Water
 
+'''
 class Solution:
     def trap(self, height: List[int]) -> int:
         n = len(height)
@@ -28,3 +29,4 @@ class Solution:
                 else:
                     temp = high[0]*(i-high[1]-1)-sum(height[(high[1]+1):i])
                     return temp+self.trap(height[:(high[1]+1)])+self.trap(height[i:])
+'''
