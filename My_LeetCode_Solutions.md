@@ -3,6 +3,17 @@ My own solutions to some LeetCode problems
 
 42. Trapping Rain Water
 
+执行用时：
+32 ms
+, 在所有 Python3 提交中击败了
+97.76%
+的用户
+内存消耗：
+15.8 MB
+, 在所有 Python3 提交中击败了
+53.46%
+的用户
+
 ```Python
 class Solution:
     def trap(self, height: List[int]) -> int:
