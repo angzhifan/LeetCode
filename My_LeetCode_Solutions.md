@@ -1,5 +1,5 @@
 # LeetCode
-My own solutions to some LeetCode problems
+In this markdown file, I posted some of my own solutions to some LeetCode problems if I think they are interesting and my solutions have good time complexity or space complexity.
 
 10. Regular Expression Matching
 执行用时：
