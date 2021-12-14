@@ -1,5 +1,5 @@
 # LeetCode
-In this markdown file, I posted some of my own solutions to some LeetCode problems if I think they are interesting and my solutions have good time complexity or space complexity.
+In this markdown file, I posted some of my own solutions to some LeetCode problems if I think they are interesting and have good running time or space complexity.
 
 10. Regular Expression Matching
 
@@ -13,7 +13,7 @@ In this markdown file, I posted some of my own solutions to some LeetCode proble
 , 在所有 Python3 提交中击败了
 77.69%
 的用户
-```
+```python
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         n, m = len(s), len(p)
@@ -61,7 +61,7 @@ class Solution:
 53.46%
 的用户
 
-```c
+```python
 class Solution:
     def trap(self, height: List[int]) -> int:
         n = len(height)
