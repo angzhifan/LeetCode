@@ -1,3 +1,34 @@
+105. Construct Binary Tree from Preorder and Inorder Traversal
+
+执行用时：
+28 ms
+, 在所有 Python3 提交中击败了
+99.71%
+的用户
+内存消耗：
+15.6 MB
+, 在所有 Python3 提交中击败了
+98.64%
+的用户
+```python
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        n, i1, i2, root = len(preorder), 1, 0, TreeNode(preorder[0])
+        stack, node = [root], root
+        while i1<n:
+            if stack and stack[-1].val==inorder[i2]:
+                while stack and stack[-1].val==inorder[i2]: node, i2 = stack.pop(), i2+1
+                node.right = TreeNode(preorder[i1])
+                node = node.right
+            else:
+                node.left = TreeNode(preorder[i1])
+                node = node.left
+            stack.append(node)
+            i1 += 1
+        return root
+```
+
+
 
 10. Regular Expression Matching
 
