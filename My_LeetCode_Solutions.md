@@ -1,10 +1,8 @@
-## My LeetCode solutions
+## My LeetCode Solutions
 In this repository, I posted some of my solutions to some LeetCode problems if I think they are interesting and have good running time or space complexity.
 
 
-
-
-
+## Python3 Code
 1567. Maximum Length of Subarray With Positive Product
 
 执行用时：
