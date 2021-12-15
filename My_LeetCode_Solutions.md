@@ -1,4 +1,34 @@
-105. Construct Binary Tree from Preorder and Inorder Traversal
+## My solutions
+
+1567. Maximum Length of Subarray With Positive Product
+
+执行用时：
+84 ms
+, 在所有 Python3 提交中击败了
+99.52%
+的用户
+内存消耗：
+24.6 MB
+, 在所有 Python3 提交中击败了
+97.61%
+的用户
+
+```python
+class Solution:
+    def getMaxLen(self, nums: List[int]) -> int:
+        output, l0, l1 = 0, 0, 0
+        for i in nums:
+            if i>0:
+                l0, l1 = l0+1, (l1+1) if l1>0 else 0
+            elif i<0:
+                l0, l1 = (l1+1) if l1>0 else 0, l0+1 
+            else:
+                l0, l1 = 0, 0
+            if l0>output: output = l0
+        return output
+```
+
+105.Construct Binary Tree from Preorder and Inorder Traversal
 
 执行用时：
 28 ms
