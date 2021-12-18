@@ -3,8 +3,29 @@ In this repository, I posted some of my solutions to some LeetCode problems if I
 
 
 ### Python3 Code 
+260. Single Number III
 
+执行用时：
+24 ms
+, 在所有 Python3 提交中击败了
+99.09%
+的用户
+内存消耗：
+16.1 MB
+, 在所有 Python3 提交中击败了
+36.87%
+的用户
 
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        diff = reduce(lambda x,y: x^y, nums)
+        i = (diff&(-diff)).bit_length()-1
+        num1 = reduce(lambda x,y: x^y if (y>>i)&1 else x, nums) 
+        if not (nums[0]>>i)&1:
+            num1 = num1^nums[0]
+        return [num1, diff^num1]
+```
 
 1567.Maximum Length of Subarray With Positive Product
 
