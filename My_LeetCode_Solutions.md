@@ -5,7 +5,49 @@ In this repository, I posted some of my solutions to some LeetCode problems if I
 ### Python3 Code 
 
 
-260.Single Number III
+
+
+
+剑指 Offer 51. 数组中的逆序对  LCOF
+
+执行用时：
+1120 ms
+, 在所有 Python3 提交中击败了
+70.89%
+的用户
+内存消耗：
+26 MB
+, 在所有 Python3 提交中击败了
+41.12%
+的用户
+
+```python
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        def merge(start, end):
+            if end-start<=1:
+                return 0
+            n1 = int((end-start)/2)
+            n2 = end-start-n1
+            cnt = merge(start, start+n1)+merge(start+n1, end)
+            i1, i2, nums1 = 0, 0, nums[start:start+n1]
+            while i1<n1 and i2<n2:
+                if nums1[i1]<=nums[start+n1+i2]:
+                    nums[start+i1+i2] = nums1[i1]
+                    i1 += 1
+                else:
+                    nums[start+i1+i2] = nums[start+n1+i2]
+                    cnt += (n1-i1)
+                    i2 += 1
+            if i1<n1:
+                nums[(start+i1+n2):end] = nums1[i1:n1]
+            return cnt
+        return merge(0,len(nums))
+```
+
+
+
+260. Single Number III
 
 执行用时：
 24 ms
@@ -29,7 +71,7 @@ class Solution:
         return [num1, diff^num1]
 ```
 
-1567.Maximum Length of Subarray With Positive Product
+1567. Maximum Length of Subarray With Positive Product
 
 执行用时：
 84 ms
@@ -57,7 +99,7 @@ class Solution:
         return output
 ```
 
-105.Construct Binary Tree from Preorder and Inorder Traversal
+105. Construct Binary Tree from Preorder and Inorder Traversal
 
 执行用时：
 28 ms
