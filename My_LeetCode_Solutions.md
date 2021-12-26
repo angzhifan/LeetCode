@@ -11,7 +11,6 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 剑指 Offer 51. 数组中的逆序对  LCOF
 
-
 执行用时：
 1120 ms
 , 在所有 Python3 提交中击败了
@@ -72,7 +71,7 @@ class Solution:
         return [num1, diff^num1]
 ```
 
-1567.Maximum Length of Subarray With Positive Product
+1567. Maximum Length of Subarray With Positive Product
 
 执行用时：
 84 ms
