@@ -48,9 +48,7 @@ class Solution:
         return merge(0,len(nums))
 ```
 
-
 260. Single Number III
-
 
 执行用时：
 24 ms
@@ -74,8 +72,7 @@ class Solution:
         return [num1, diff^num1]
 ```
 
-
-1567. Maximum Length of Subarray With Positive Product
+1567.Maximum Length of Subarray With Positive Product
 
 执行用时：
 84 ms
