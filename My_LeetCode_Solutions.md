@@ -9,6 +9,71 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 
 
+
+188. Best Time to Buy and Sell Stock IV
+
+执行用时：
+40 ms
+, 在所有 Python3 提交中击败了
+99.25%
+的用户
+内存消耗：
+15.5 MB
+, 在所有 Python3 提交中击败了
+65.06%
+的用户
+
+I thought about dynamic programming, but I later came up with a faster greedy algorithm, which is displayed as follows.
+
+```python
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        import heapq
+        n = len(prices)
+        if n==0 or k==0: return 0
+        # Simplify the "prices" array
+        cnt_d, d, old_turn, s, h, profit = 0, dict(), prices[0], 1, [], 0
+        for i in range(1,n-1):
+            if s==1:
+                if prices[i-1]<=prices[i] and prices[i]>prices[i+1] and prices[i]>old_turn:
+                    heappush(h, (prices[i]-old_turn, cnt_d, 1))
+                    d[cnt_d] = [cnt_d, prices[i]-old_turn, 1]
+                    old_turn, cnt_d, s = prices[i], cnt_d+1, -1
+                elif prices[i]<old_turn: old_turn = prices[i]
+            elif prices[i-1]>=prices[i] and prices[i]<prices[i+1] and prices[i]<old_turn:
+                heappush(h, (old_turn-prices[i], cnt_d, 1))
+                d[cnt_d] = [cnt_d, prices[i]-old_turn, 1]    
+                old_turn, cnt_d, s = prices[i], cnt_d+1, 1
+        if prices[n-1]>old_turn:
+            heappush(h, (prices[n-1]-old_turn, cnt_d, 1))
+            d[cnt_d], cnt_d = [cnt_d, prices[n-1]-old_turn, 1], cnt_d+1
+        # Merge consecutive intervals using greedy algorithm
+        cnt = (cnt_d+1)//2
+        while cnt>k:
+            tmp = heappop(h) 
+            while d[tmp[1]][2]!=tmp[2]: tmp = heappop(h)            
+            right, left = tmp[1]+tmp[2], tmp[1]-1
+            if right>=cnt_d or d[right][2]==-1:
+                if tmp[1]%2==0: cnt -= 1
+                d[tmp[1]][2] = -1
+                continue
+            while left>=0:
+                if left>d[left][0]: left = d[left][0]
+                else: break
+            if tmp[1]==0 or d[left][2]==-1:
+                if tmp[1]%2==0:cnt -= 1
+                if tmp[1]==0:d[0][2]=-1
+                continue
+            d[left] = [left,d[left][1]+d[right][1]+(-tmp[0] if tmp[1]%2 else tmp[0]),right+d[right][2]-left]
+            heappush(h, (abs(d[left][1]), left, d[left][2]))
+            d[tmp[1]], d[right], cnt = [left, d[tmp[1]][1], -1], [left,d[right][1],-1], cnt-1
+        while h:
+            tmp = heappop(h)
+            if tmp[1]%2==0 and d[tmp[1]][0]==tmp[1] and d[tmp[1]][2]==tmp[2]: profit += d[tmp[1]][1]
+        return profit
+```
+
+
 剑指 Offer 51. 数组中的逆序对  LCOF
 
 执行用时：
