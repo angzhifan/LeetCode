@@ -5,10 +5,73 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+324. Wiggle Sort II
 
+执行用时：
+76 ms
+, 在所有 Python3 提交中击败了
+29.57%
+的用户
+内存消耗：
+16.1 MB
+, 在所有 Python3 提交中击败了
+25.81%
+的用户
 
+The popular "three_way_partition" solution to this Leetcode problem has worst case time complexity O(n^2).
+My solution always has time complexity O(n), space complexity O(1). So I still posted my solution here although
+its time cost and space cost for its test examples only beat 20+% of other submissions.
 
-
+```python
+class Solution:
+    def wiggleSort(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        # Step1. Greedily make a wiggle-sorted list at the beginning of "nums"
+        n, p1 = len(nums), 0
+        for i in range(n-1):
+            if nums[i]==nums[i+1]:
+                p1 = max(p1, i+2)
+                while p1<n and (nums[p1]==nums[i] or (i%2==0 and nums[i]>nums[p1] and i>0 and nums[p1]==nums[i-1]) or (i%2==1 and nums[i]<nums[p1] and nums[p1]==nums[i-1])): p1 += 1
+                if p1<n: nums[i+1], nums[p1] = nums[p1], nums[i+1]
+            if (i%2==0 and nums[i]>nums[i+1]) or (i%2==1 and nums[i]<nums[i+1]):
+                nums[i], nums[i+1] = nums[i+1], nums[i]
+        # Step2. To make the tail of "nums" wiggle-sorted as well, 
+        # need to find more numbers which will be used in the next step
+        cnt1, cnt2, cnt3, p2, t = 0, 1, 0, n-2, nums[n-1]
+        while p2>=0 and (cnt1<cnt2 and cnt3<cnt2 and cnt1+cnt3<=cnt2):
+            if nums[p2]==t: cnt2 += 1
+            elif nums[p2]<t: cnt1 += 1
+            else: cnt3 += 1
+            p2 -= 1
+        # Step3. Process the tail of "nums". Find positions for those numbers which equal to nums[n-1]
+        if p2==-1 and cnt1*cnt3>0: nums[0], nums[-1], p2 = nums[-1], nums[0], 0
+        p3, p4, tmp, s = p2+1, n-1, cnt1-1 if (p2+1)%2==0 else cnt3-1, -1 if (p2+1)%2==0 else 1 
+        if cnt1==0: t_indices = list(range(p2+1, n, 2)) if s==-1 else list(range(p2+2, n, 2))
+        elif cnt3==0: t_indices = list(range(p2+2, n, 2)) if s==-1 else list(range(p2+1, n, 2))
+        else:  
+            t_indices = list(range(p2+2, p2+2+2*tmp, 2))+list(range(p2+3+2*tmp, n, 2))
+        ### Move those numbers to the end
+        l_t_indices = len(t_indices)
+        while p3<p4:
+            while nums[p4]==t: p4 -= 1
+            while nums[p3]!=t: p3 += 1
+            if p3<p4: nums[p3], nums[p4] = nums[p4], nums[p3]
+        ### Then move them to assigned positions
+        for i in range(l_t_indices):
+            nums[t_indices[i]], nums[-l_t_indices+i] = nums[-l_t_indices+i], nums[t_indices[i]]
+        if cnt1*cnt3==0: return nums
+        # Step4. If there are both smaller and bigger ones, may need to switch them to complete the process.
+        p1, p3 = p2+1, n-1 if n-1!=t_indices[-1] else n-2
+        while p1<p3:
+            while p1<p2+2+2*tmp and (nums[p1]-t)*s>0: p1 += 2
+            while p3>p2+3+2*tmp and (nums[p3]-t)*s<0: p3 -= 2
+            if p1<=p2+1+2*tmp and p2+2+2*tmp<=p3: 
+                nums[p1], nums[p3] = nums[p3], nums[p1]
+            p1, p3 = p1+2, p3-2
+        return nums
+```
 
 188. Best Time to Buy and Sell Stock IV
 
