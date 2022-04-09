@@ -5,6 +5,40 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+程序员面试金典（第 6 版）面试题 08.14. Boolean Evaluation LCCI
+
+执行用时：
+36 ms
+, 在所有 Python3 提交中击败了
+100.00%
+的用户
+内存消耗：
+15 MB
+, 在所有 Python3 提交中击败了
+96.12%
+的用户
+
+```python
+class Solution:
+    def countEval(self, s: str, result: int) -> int:
+        def eval(simpol, cnt1, cnt2, cnt):
+            if simpol=="^": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[1]*cnt2[1],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]]
+            if simpol=="|": return [cnt[0]+cnt1[0]*cnt2[0],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]+cnt1[1]*cnt2[1]]
+            if simpol=="&": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0],cnt[1]+cnt1[1]*cnt2[1]]
+
+        n = (len(s)+1)//2
+        if n==0: return 0
+        table = [[[] for j in range(i,n)] for i in range(n)]
+        for i in range(n): table[i][0] = [int(s[i*2])^1, int(s[i*2])^0]
+        for k in range(1,n):
+            for i in range(n-k):
+                cnt = [0, 0]
+                for j in range(1, k+1): cnt = eval(s[i*2+j*2-1], table[i][j-1], table[i+j][k-j], cnt)
+                table[i][k]=cnt 
+        return table[0][n-1][result]
+```
+
+
 324. Wiggle Sort II
 
 执行用时：
