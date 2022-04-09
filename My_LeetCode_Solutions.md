@@ -8,23 +8,23 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 程序员面试金典（第 6 版）面试题 08.14. Boolean Evaluation LCCI
 
 执行用时：
-36 ms
+48 ms
 , 在所有 Python3 提交中击败了
-100.00%
+95.15%
 的用户
 内存消耗：
-15 MB
+14.9 MB
 , 在所有 Python3 提交中击败了
-96.12%
+100.00%
 的用户
 
 ```python
 class Solution:
     def countEval(self, s: str, result: int) -> int:
-        def eval(simpol, cnt1, cnt2, cnt):
-            if simpol=="^": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[1]*cnt2[1],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]]
-            if simpol=="|": return [cnt[0]+cnt1[0]*cnt2[0],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]+cnt1[1]*cnt2[1]]
-            if simpol=="&": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0],cnt[1]+cnt1[1]*cnt2[1]]
+        def eval(symbol, cnt1, cnt2, cnt):
+            if symbol=="^": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[1]*cnt2[1],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]]
+            if symbol=="|": return [cnt[0]+cnt1[0]*cnt2[0],cnt[1]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0]+cnt1[1]*cnt2[1]]
+            if symbol=="&": return [cnt[0]+cnt1[0]*cnt2[0]+cnt1[0]*cnt2[1]+cnt1[1]*cnt2[0],cnt[1]+cnt1[1]*cnt2[1]]
 
         n = (len(s)+1)//2
         if n==0: return 0
