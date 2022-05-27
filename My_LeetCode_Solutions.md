@@ -5,6 +5,31 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+287. Find the Duplicate Number
+
+执行用时：
+92 ms
+, 在所有 Python3 提交中击败了
+80.67%
+的用户
+内存消耗：
+25.9 MB
+, 在所有 Python3 提交中击败了
+74.17%
+的用户
+
+```python
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        p1, p2 = nums[0], nums[nums[0]]
+        while p1!= p2:
+            p1, p2 = nums[p1], nums[nums[p2]]
+        p1 = 0
+        while p1!= p2:
+            p1, p2 = nums[p1], nums[p2]
+        return p1
+```
+
 程序员面试金典（第 6 版）面试题 08.14. Boolean Evaluation LCCI
 
 执行用时：
