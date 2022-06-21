@@ -5,6 +5,46 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+721. Accounts Merge
+
+执行用时：
+60 ms
+, 在所有 Python3 提交中击败了
+100.00%
+的用户
+内存消耗：
+18.5 MB
+, 在所有 Python3 提交中击败了
+48.79%
+的用户
+
+```python
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        n, outputs = len(accounts), []
+        emails, rep = dict(), [i for i in range(n)]
+        for i in range(n):
+            tmp, old_reps = i, set([i])
+            for email in accounts[i][1:]:
+                if email in emails:
+                    index = emails[email]
+                    while rep[index]!=index: index = rep[index]
+                    old_reps.add(index)
+                    tmp = min(tmp, index)
+                else: emails[email] = tmp
+            for index in old_reps:
+                rep[index] = tmp  
+        groups = collections.defaultdict(set)
+        for email in emails:
+            index = emails[email]
+            while rep[index]!=index: index = rep[index]
+            groups[index].add(email)
+        for index in groups:
+            outputs.append([accounts[index][0]]+sorted(groups[index]))
+        return outputs
+```
+
+
 287. Find the Duplicate Number
 
 执行用时：
