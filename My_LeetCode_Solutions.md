@@ -5,6 +5,44 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+698. Partition to K Equal Sum Subsets
+
+执行用时：
+76 ms
+, 在所有 Python3 提交中击败了
+72.74%
+的用户
+内存消耗：
+17.3 MB
+, 在所有 Python3 提交中击败了
+44.75%
+的用户
+
+```python
+class Solution:
+    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool: 
+        if k==1: return True
+        if len(nums)<k: return False 
+        if sum(nums)%k!=0: return False 
+        s = sum(nums)//k 
+        nums.sort(reverse=True)
+        if nums[0]>s: return False 
+        n = len(nums)
+
+        @cache
+        def dfs(state, remain):
+            if remain==s: return True 
+            if remain%s==0:
+                for i in range(n):
+                    if (state>>i)&1:
+                        return dfs(state^(1<<i), remain-nums[i+1])
+            for i in range(n):
+                if (state>>i)&1 and (remain-nums[i+1])//s==(remain-1)//s:
+                    if dfs(state-(1<<i), remain-nums[i+1]): return True 
+            return False 
+        return dfs((1<<(n-1))-1, sum(nums)-nums[0])
+```
+
 721. Accounts Merge
 
 执行用时：
