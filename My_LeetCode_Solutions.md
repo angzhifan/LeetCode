@@ -5,6 +5,43 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+1675. Minimize Deviation in Array
+
+执行用时：528 ms, 在所有 Python3 提交中击败了98.61%的用户
+内存消耗：25.3 MB, 在所有 Python3 提交中击败了5.56%的用户
+
+```python
+class Solution:
+    def minimumDeviation(self, nums: List[int]) -> int:
+        # find the largest odd factor
+        max_num = 0
+        for i, num in enumerate(nums):
+            while num%2==0:
+                num //= 2 
+            max_num = max(num, max_num)
+        
+        # make everything <= the largest odd factor at first
+        for i, num in enumerate(nums):
+            if num%2==1:
+                if num*2<=max_num:
+                    num *= 2 
+            else:
+                while num%2==0 and num>max_num:
+                    num //= 2 
+            nums[i] = (num, nums[i])
+
+        # we have a change to double some numbers, update the output accordingly
+        nums.sort(key=lambda x: x[0])
+        output = max_num-nums[0][0]
+        for i in range(len(nums)-1):
+            if nums[i][0]%2==1 or nums[i][0]<nums[i][1]: 
+                nums[i] = (nums[i][0]*2, nums[i][1])
+            else: break 
+            max_num = max(max_num, nums[i][0])
+            output = min(output, max_num-nums[i+1][0])
+        return output
+```
+
 698. Partition to K Equal Sum Subsets
 
 执行用时：
