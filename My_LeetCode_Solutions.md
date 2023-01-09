@@ -5,6 +5,38 @@ I used the LeetCode-China website, so some descriptions are in Chinese.
 
 ### Python3 Code 
 
+2458. Height of Binary Tree After Subtree Removal Queries
+
+执行用时： 684 ms, 在所有 Python3 提交中击败了 99.38% 的用户
+内存消耗： 77 MB, 在所有 Python3 提交中击败了 96.42% 的用户
+
+```python
+class Solution:
+    def treeQueries(self, root: Optional[TreeNode], queries: List[int]) -> List[int]:
+        depth, output = {}, []
+        def dfs(node):
+            if not node: return -1 
+            d1 = dfs(node.left)
+            d2 = dfs(node.right)
+            depth[node.val] = max(d1,d2)+1 
+            return max(d1,d2)+1 
+        dfs(root)
+        longest_path, other_branch = {}, 0
+        node, step = root, 1
+        while node:
+            longest_path[node.val] = other_branch
+            if node.left and depth[node.left.val]==depth[node.val]-1: 
+                other_branch = max(other_branch, step+(depth[node.right.val] if node.right else -1))
+                node = node.left
+            else: 
+                other_branch = max(other_branch, step+(depth[node.left.val] if node.left else -1))
+                node = node.right
+            step += 1
+        for num in queries:
+            output.append(longest_path[num] if num in longest_path else depth[root.val])
+        return output
+```
+
 1675. Minimize Deviation in Array
 
 执行用时：528 ms, 在所有 Python3 提交中击败了98.61%的用户
